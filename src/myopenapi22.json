@@ -1,0 +1,2396 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "HNG TASK 3",
+    "description": "This is the documentation for HNG task 3",
+    "termsOfService": "http://swagger.io/terms/",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://hng-task-3-rosy.vercel.app/api/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Everything about authentication"
+    },
+    {
+      "name": "Organisation",
+      "description": "Everything about organisation"
+    },
+    {
+      "name": "User",
+      "description": "Everything about users"
+    },
+    {
+      "name": "Blog",
+      "description": "Everything about blog"
+    },
+    {
+      "name": "Payment",
+      "description": "Everything about payment"
+    },
+    {
+      "name": "Notification",
+      "description": "Everything about notifications"
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Register as a new user",
+        "description": "Register as a new user",
+        "operationId": "createUser",
+        "requestBody": {
+          "description": "Create a new user",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Registration successful"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "userId": {
+                          "type": "string",
+                          "example": "6b2d9dda-3939-4bc4-bb29-51baa6087r54"
+                        },
+                        "firstName": {
+                          "type": "string",
+                          "example": "John"
+                        },
+                        "lastName": {
+                          "type": "string",
+                          "example": "Doe"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "johndoe@gmail.com"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Bad request"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unable to register user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Duplicate user"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User already exist"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login a user",
+        "description": "Login with email and password",
+        "operationId": "loginUser",
+        "requestBody": {
+          "description": "Login a registered user",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Login successful"
+                    },
+                    "accessToken": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkZTAwYmQzMi1iYjEzLTQyYTctYWQ3ZC03N2MzOGNkMGQ4NGUiLCJpYXQiOjE3MjA2NzQ0MjksImV4cCI6MTcyMDY3NTMyOX0.W4jhTvd5vKH1zN9JpXwTeGYZfy6QTmGd-eGxm6Co9Po"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "userId": {
+                          "type": "string",
+                          "example": "6b2d9dda-3939-4bc4-bb29-51baa6087r54"
+                        },
+                        "firstName": {
+                          "type": "string",
+                          "example": "John"
+                        },
+                        "lastName": {
+                          "type": "string",
+                          "example": "Doe"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "johndoe@gmail.com"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Bad request"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unable to login"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Server error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/forgotpassword": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User forgot password",
+        "description": "A registered user forget password",
+        "operationId": "forgotPassword",
+        "requestBody": {
+          "description": "Request to creata a new password",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "johndoe@gmail.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Check your email for reset link"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Bad request"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unable to send link"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Not found"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User with email not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/resetpassword/{resetToken}": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User resets password",
+        "description": "A registered user can set a new password",
+        "operationId": "resetPassword",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "resetToken",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Reset token sent to user's email address"
+          }
+        ],
+        "requestBody": {
+          "description": "Create a new password",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "password": {
+                    "type": "string",
+                    "example": "1234567"
+                  },
+                  "confirmPassword": {
+                    "type": "string",
+                    "example": "1234567"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Password changed successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Bad request"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unable to change password"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Server error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Auth"],
+        "summary": "Logout user",
+        "description": "A logged in user logs out",
+        "operationId": "logoutUser",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User logged out successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You cannot perform task"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Server error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["User"],
+        "summary": "View all users",
+        "description": "Admin can view all users",
+        "operationId": "getAllUsers",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Users retrieved successfully"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "userId": {
+                            "type": "string",
+                            "example": "80wd9dda-3939-4bc4-bb29-51baa6087r54"
+                          },
+                          "firstName": {
+                            "type": "string",
+                            "example": "John"
+                          },
+                          "lastName": {
+                            "type": "string",
+                            "example": "Doe"
+                          },
+                          "email": {
+                            "type": "string",
+                            "example": "johndoe@gmail.com"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You cannot perform task"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You cannot perform task"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Server error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/me": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["User"],
+        "summary": "View profile",
+        "description": "A logged in user can view profile",
+        "operationId": "getUser",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Profile returned successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "userId": {
+                          "type": "string",
+                          "example": "6b2d9dda-3939-4bc4-bb29-51baa6087r54"
+                        },
+                        "firstName": {
+                          "type": "string",
+                          "example": "John"
+                        },
+                        "lastName": {
+                          "type": "string",
+                          "example": "Doe"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "johndoe@gmail.com"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You cannot perform task"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Server error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/update": {
+      "patch": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["User"],
+        "summary": "Update user",
+        "description": "A logged in user update details",
+        "operationId": "updateUser",
+        "requestBody": {
+          "description": "Update logged in user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string",
+                    "example": "Jane"
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "example": "Smith"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User profile updated successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "userId": {
+                          "type": "string",
+                          "example": "6b2d9dda-3939-4bc4-bb29-51baa6087r54"
+                        },
+                        "firstName": {
+                          "type": "string",
+                          "example": "Jane"
+                        },
+                        "lastName": {
+                          "type": "string",
+                          "example": "Smith"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Bad request"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unable to update user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You cannot perform task"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Server error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/preference": {
+      "patch": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["User"],
+        "summary": "Update user's preferences",
+        "description": "A logged in user update preferences",
+        "operationId": "updateUserPrefernces",
+        "requestBody": {
+          "description": "Update logged in user's preferences",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "language": {
+                    "type": "string",
+                    "example": "English"
+                  },
+                  "region": {
+                    "type": "string",
+                    "example": "West Africa"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User preferences updated successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Bad request"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unable to update user preferences"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You cannot perform task"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Server error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organisations": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Organisation"],
+        "summary": "A logged in user creates an organisation",
+        "description": "Create a new organisation",
+        "operationId": "createOrganisation",
+        "requestBody": {
+          "description": "Create a organisation",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrganisation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Organisation created successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "orgId": {
+                          "type": "string",
+                          "example": "5r2d9dda-3939-4bc4-bb29-51baa6087r54"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "John's Organisation"
+                        },
+                        "description": {
+                          "type": "string",
+                          "example": "This is John's organisation"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Bad request"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unable to login"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Server error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Organisation"],
+        "summary": "A logged in user can get all organisations user belongs to or is added to",
+        "description": "Get all organisations",
+        "operationId": "getAllOrganisations",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Organisations retrieved successfully"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "orgId": {
+                            "type": "string",
+                            "example": "9omd9dda-3939-4bc4-bb29-51baa6087r54"
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "John's Organisation"
+                          },
+                          "description": {
+                            "type": "string",
+                            "example": "This is John's organisation"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You cannot perform task"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You cannot perform task"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Server error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organisations/{orgId}/users": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Organisation"],
+        "summary": "A logged in user adds another user to an organisation",
+        "description": "Add user to organisation",
+        "operationId": "addUserToOrganisation",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orgId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of organisation to add user to"
+          }
+        ],
+        "requestBody": {
+          "description": "Add a user to organisation",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string",
+                    "example": "5r2d9dda-3939-4bc4-bb29-51baa6087r54"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User added to organisation successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Bad request"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unable to add user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You cannot perform task"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Server error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organisations/{orgId}": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Organisation"],
+        "summary": "A logged in user retrieves a single organisation",
+        "description": "Retrieve an organisation",
+        "operationId": "getOrganisation",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orgId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of organisation to be retrieved"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Organisation retrieved successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "orgId": {
+                          "type": "string",
+                          "example": "5r2d9dda-3939-4bc4-bb29-51baa6087r54"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "John's Organisation"
+                        },
+                        "description": {
+                          "type": "string",
+                          "example": "This is John's organisation"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Bad request"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Cannot retrieve organisation"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Server error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/blogs": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Blog"],
+        "summary": "Create blog",
+        "description": "A logged in user can create blogs",
+        "operationId": "createBlog",
+        "requestBody": {
+          "description": "Create a new blog",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBlog"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Blog created successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "blogId": {
+                          "type": "string",
+                          "example": "3t2d9dda-3939-4bc4-bb29-51baa6087r54"
+                        },
+                        "title": {
+                          "type": "string",
+                          "example": "My First blog"
+                        },
+                        "content": {
+                          "type": "string",
+                          "example": "This is my first blog"
+                        },
+                        "slug": {
+                          "type": "string",
+                          "example": "my-first-blog"
+                        },
+                        "author": {
+                          "type": "object",
+                          "properties": {
+                            "firstName": {
+                              "type": "string",
+                              "example": "John"
+                            },
+                            "lastName": {
+                              "type": "string",
+                              "example": "Doe"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Bad request"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unable to create blog"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You cannot perform task"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Server error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/blogs/{blogId}": {
+      "get": {
+        "tags": ["Blog"],
+        "summary": "Retrieve a single blog",
+        "description": "Retrieve a blog",
+        "operationId": "getBlog",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "blogId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of blog to be retrieved"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Blog retrieved successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "blogId": {
+                          "type": "string",
+                          "example": "5rhe49dda-3939-4bc4-bb29-51baa6087r54"
+                        },
+                        "title": {
+                          "type": "string",
+                          "example": "My First blog"
+                        },
+                        "content": {
+                          "type": "string",
+                          "example": "This is my first blog"
+                        },
+                        "slug": {
+                          "type": "string",
+                          "example": "my-first-blog"
+                        },
+                        "author": {
+                          "type": "object",
+                          "properties": {
+                            "firstName": {
+                              "type": "string",
+                              "example": "John"
+                            },
+                            "lastName": {
+                              "type": "string",
+                              "example": "Doe"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Server error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Blog"],
+        "summary": "Update blog",
+        "description": "A logged in user can update blog",
+        "operationId": "updateBlog",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "blogId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of blog to be updated"
+          }
+        ],
+        "requestBody": {
+          "description": "Update blog",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Updated Blog Title"
+                  },
+                  "content": {
+                    "type": "string",
+                    "example": "This is the updated blog content"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Blog updatedd successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "blogId": {
+                          "type": "string",
+                          "example": "3t2d9dda-3939-4bc4-bb29-51baa6087r54"
+                        },
+                        "title": {
+                          "type": "string",
+                          "example": "Updated Blog Title"
+                        },
+                        "content": {
+                          "type": "string",
+                          "example": "This is the updated blog content"
+                        },
+                        "slug": {
+                          "type": "string",
+                          "example": "updated-blog-title"
+                        },
+                        "author": {
+                          "type": "object",
+                          "properties": {
+                            "firstName": {
+                              "type": "string",
+                              "example": "John"
+                            },
+                            "lastName": {
+                              "type": "string",
+                              "example": "Doe"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Bad request"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unable to update blog"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You cannot perform task"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Server error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Blog"],
+        "summary": "Delete a single blog",
+        "description": "Author deletes blog",
+        "operationId": "deleteBlog",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "blogId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of blog to be deleted"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Blog deleted successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You cannot perform task"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Not found"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Blog not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Server error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payments": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Payment"],
+        "summary": "Make payment",
+        "description": "A logged in user can make payment",
+        "operationId": "makePayment",
+        "requestBody": {
+          "description": "Make payment",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MakePayment"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Payment made successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "paymentId": {
+                          "type": "string",
+                          "example": "8uyd9dda-3939-4bc4-bb29-51baa6087r54"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Bad request"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unable to make payment"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You cannot perform task"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Server error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Notification"],
+        "summary": "A notification is generated by a logged in user",
+        "description": "A new notification is generated",
+        "operationId": "generateNotification",
+        "requestBody": {
+          "description": "Generate a new notification",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string",
+                    "example": "5r2d9dda-3939-4bc4-bb29-51baa6087r54"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "User 5r2d9dda-3939-4bc4-bb29-51baa6087r54 created a blog post"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "This notification is generated when a user creates a blog post"
+                  },
+                  "read": {
+                    "type": "boolean",
+                    "example": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "A new notification is generated successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Bad request"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unable to generate notification"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You cannot perform task"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Server error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Notification"],
+        "summary": "Retrieve all notifications",
+        "description": "Retrieve all notifications by logged in user",
+        "operationId": "retrieveNotifications",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Notifications retrieved successfully"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "notificationId": {
+                            "type": "string",
+                            "example": "5r2d9dda-3939-4bc4-bb29-51baa6087r54"
+                          },
+                          "message": {
+                            "type": "string",
+                            "example": "This notification is generated when a user creates a blog post"
+                          },
+                          "description": {
+                            "type": "string",
+                            "example": "This is John's organisation"
+                          },
+                          "read": {
+                            "type": "string",
+                            "example": true
+                          },
+                          "user": {
+                            "type": "object",
+                            "properties": {
+                              "firstName": {
+                                "type": "string",
+                                "example": "John"
+                              },
+                              "lastName": {
+                                "type": "string",
+                                "example": "Doe"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You cannot perform task"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You cannot perform task"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Server error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "example": "6b2d9dda-3939-4bc4-bb29-51baa6087r54"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "johndoe@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": 1234567
+          }
+        }
+      },
+      "RegisterUser": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "johndoe@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": 1234567
+          }
+        }
+      },
+      "LoginUser": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "johndoe@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": 12345678
+          }
+        }
+      },
+      "CreateOrganisation": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "John's Organisation"
+          },
+          "description": {
+            "type": "string",
+            "example": "This is John's organisation"
+          }
+        }
+      },
+      "CreateBlog": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "My First blog"
+          },
+          "content": {
+            "type": "string",
+            "example": "This is John's organisation"
+          }
+        }
+      },
+      "MakePayment": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "float",
+            "example": 1000.0
+          },
+          "reference_id": {
+            "type": "string",
+            "example": "9tmd9dda-3939-4bc4-bb29-51baa6087r54"
+          }
+        }
+      }
+    }
+  }
+}
