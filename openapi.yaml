@@ -11,6 +11,10 @@ info:
 servers:
   - url: https://hng-backend-stage-three-dfeabeff45f4.herokuapp.com
     description: Production Server
+  - url: http://localhost:3000
+    description: Local server
+  - url: https://drive.google.com/file/d/1X6980tVbsdIimuX1RvaUoHe9RxYLyRZV/view?usp=sharing
+    description: Database design
 tags:
   - name: Auth
     description: Everything about authentication
