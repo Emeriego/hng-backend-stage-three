@@ -8,8 +8,8 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.1
 servers:
-  - url: http://localhost:3000
-    description: Development server
+  - url: https://hng-backend-stage-three-dfeabeff45f4.herokuapp.com
+    description: Production Server
 tags:
   - name: Auth
     description: Everything about authentication
