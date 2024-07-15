@@ -648,300 +648,6 @@ paths:
                   message:
                     type: string
                     example: Internal server error
-  "/organisations":
-    post:
-      security:
-        - bearerAuth: []
-      tags:
-        - Organisation
-      summary: A logged in user creates an organisation
-      description: Create a new organisation
-      operationId: createOrganisation
-      requestBody:
-        description: Create an organisation
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreateOrganisation"
-      responses:
-        '201':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: success
-                  message:
-                    type: string
-                    example: Organisation created successfully
-                  data:
-                    type: object
-                    properties:
-                      orgId:
-                        type: string
-                        example: 5r2d9dda-3939-4bc4-bb29-51baa6087r54
-                      name:
-                        type: string
-                        example: John's Organisation
-                      description:
-                        type: string
-                        example: This is John's organisation
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Bad request
-                  message:
-                    type: string
-                    example: Unable to login
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Server error
-                  message:
-                    type: string
-                    example: Internal server error
-
-    get:
-      security:
-        - bearerAuth: []
-      tags:
-        - Organisation
-      summary: A logged in user can get all organisations user belongs to or is added to
-      description: Get all organisations
-      operationId: getAllOrganisations
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: success
-                  message:
-                    type: string
-                    example: Organisations retrieved successfully
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        orgId:
-                          type: string
-                          example: 9omd9dda-3939-4bc4-bb29-51baa6087r54
-                        name:
-                          type: string
-                          example: John's Organisation
-                        description:
-                          type: string
-                          example: This is John's organisation
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Unauthorized
-                  message:
-                    type: string
-                    example: You cannot perform task
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Forbidden
-                  message:
-                    type: string
-                    example: You cannot perform task
-        '500':
-          description: Server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Server error
-                  message:
-                    type: string
-                    example: Internal server error
-  "/organisations/{orgId}/users":
-    post:
-      security:
-        - bearerAuth: []
-      tags:
-        - Organisation
-      summary: A logged in user adds another user to an organisation
-      description: Add user to organisation
-      operationId: addUserToOrganisation
-      parameters:
-        - in: path
-          name: orgId
-          schema:
-            type: string
-          required: true
-          description: ID of organisation to add user to
-      requestBody:
-        description: Add a user to organisation
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                userId:
-                  type: string
-                  example: 5r2d9dda-3939-4bc4-bb29-51baa6087r54
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: success
-                  message:
-                    type: string
-                    example: User added to organisation successfully
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Bad request
-                  message:
-                    type: string
-                    example: Unable to add user
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Unauthorized
-                  message:
-                    type: string
-                    example: You cannot perform task
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Server error
-                  message:
-                    type: string
-                    example: Internal server error
-
-  "/organisations/{orgId}":
-    get:
-      security:
-        - bearerAuth: []
-      tags:
-        - Organisation
-      summary: A logged in user retrieves a single organisation
-      description: Retrieve an organisation
-      operationId: getOrganisation
-      parameters:
-        - in: path
-          name: orgId
-          schema:
-            type: string
-          required: true
-          description: ID of organisation to be retrieved
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: success
-                  message:
-                    type: string
-                    example: Organisation retrieved successfully
-                  data:
-                    type: object
-                    properties:
-                      orgId:
-                        type: string
-                        example: 5r2d9dda-3939-4bc4-bb29-51baa6087r54
-                      name:
-                        type: string
-                        example: John's Organisation
-                      description:
-                        type: string
-                        example: This is John's organisation
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Bad request
-                  message:
-                    type: string
-                    example: Cannot retrieve organisation
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Server error
-                  message:
-                    type: string
-                    example: Internal server error
-
   "/blogs":
     post:
       security:
@@ -1271,6 +977,300 @@ paths:
                   message:
                     type: string
                     example: Internal server error
+  "/organisations":
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Organisation
+      summary: A logged in user creates an organisation
+      description: Create a new organisation
+      operationId: createOrganisation
+      requestBody:
+        description: Create an organisation
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOrganisation"
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Organisation created successfully
+                  data:
+                    type: object
+                    properties:
+                      orgId:
+                        type: string
+                        example: 5r2d9dda-3939-4bc4-bb29-51baa6087r54
+                      name:
+                        type: string
+                        example: John's Organisation
+                      description:
+                        type: string
+                        example: This is John's organisation
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Bad request
+                  message:
+                    type: string
+                    example: Unable to login
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Server error
+                  message:
+                    type: string
+                    example: Internal server error
+
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Organisation
+      summary: A logged in user can get all organisations user belongs to or is added to
+      description: Get all organisations
+      operationId: getAllOrganisations
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Organisations retrieved successfully
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        orgId:
+                          type: string
+                          example: 9omd9dda-3939-4bc4-bb29-51baa6087r54
+                        name:
+                          type: string
+                          example: John's Organisation
+                        description:
+                          type: string
+                          example: This is John's organisation
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Unauthorized
+                  message:
+                    type: string
+                    example: You cannot perform task
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Forbidden
+                  message:
+                    type: string
+                    example: You cannot perform task
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Server error
+                  message:
+                    type: string
+                    example: Internal server error
+  "/organisations/{orgId}/users":
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Organisation
+      summary: A logged in user adds another user to an organisation
+      description: Add user to organisation
+      operationId: addUserToOrganisation
+      parameters:
+        - in: path
+          name: orgId
+          schema:
+            type: string
+          required: true
+          description: ID of organisation to add user to
+      requestBody:
+        description: Add a user to organisation
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  example: 5r2d9dda-3939-4bc4-bb29-51baa6087r54
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: User added to organisation successfully
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Bad request
+                  message:
+                    type: string
+                    example: Unable to add user
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Unauthorized
+                  message:
+                    type: string
+                    example: You cannot perform task
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Server error
+                  message:
+                    type: string
+                    example: Internal server error
+
+  "/organisations/{orgId}":
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Organisation
+      summary: A logged in user retrieves a single organisation
+      description: Retrieve an organisation
+      operationId: getOrganisation
+      parameters:
+        - in: path
+          name: orgId
+          schema:
+            type: string
+          required: true
+          description: ID of organisation to be retrieved
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Organisation retrieved successfully
+                  data:
+                    type: object
+                    properties:
+                      orgId:
+                        type: string
+                        example: 5r2d9dda-3939-4bc4-bb29-51baa6087r54
+                      name:
+                        type: string
+                        example: John's Organisation
+                      description:
+                        type: string
+                        example: This is John's organisation
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Bad request
+                  message:
+                    type: string
+                    example: Cannot retrieve organisation
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Server error
+                  message:
+                    type: string
+                    example: Internal server error
+  
 components:
   securitySchemes:
     bearerAuth:
