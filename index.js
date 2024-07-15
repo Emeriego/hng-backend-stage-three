@@ -16,6 +16,6 @@ app.get('/', (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-    console.log(`Swagger UI is available on http://localhost:${port}/api-docs`);
+    console.log(`Server is running on https://hng-backend-stage-three-dfeabeff45f4.herokuapp.com:${port}`);
+    console.log(`Swagger UI is available on https://hng-backend-stage-three-dfeabeff45f4.herokuapp.com:${port}/api-docs`);
 });
