@@ -24,6 +24,314 @@ tags:
   - name: Notification
     description: Everything about notifications
 paths:
+  /users:
+    get:
+      tags:
+        - User
+      summary: View all users
+      description: Admin can view all users
+      operationId: getAllUsers
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Users retrieved successfully
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        userId:
+                          type: string
+                          example: 80wd9dda-3939-4bc4-bb29-51baa6087r54
+                        firstName:
+                          type: string
+                          example: John
+                        lastName:
+                          type: string
+                          example: Doe
+                        email:
+                          type: string
+                          example: johndoe@gmail.com
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Unauthorized
+                  message:
+                    type: string
+                    example: You cannot perform task
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Forbidden
+                  message:
+                    type: string
+                    example: You cannot perform task
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Server error
+                  message:
+                    type: string
+                    example: Internal server error
+
+  /users/me:
+    get:
+      security:
+      - bearerAuth: []
+      tags:
+      - User
+      summary: View profile
+      description: A logged in user can view profile
+      operationId: getUser
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Profile returned successfully
+                  data:
+                    type: object
+                    properties:
+                      userId:
+                        type: string
+                        example: 6b2d9dda-3939-4bc4-bb29-51baa6087r54
+                      firstName:
+                        type: string
+                        example: John
+                      lastName:
+                        type: string
+                        example: Doe
+                      email:
+                        type: string
+                        example: johndoe@gmail.com
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Unauthorized
+                  message:
+                    type: string
+                    example: You cannot perform task
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Server error
+                  message:
+                    type: string
+                    example: Internal server error
+
+  /users/update:
+    patch:
+      security:
+        - bearerAuth: []
+      tags:
+        - User
+      summary: Update user
+      description: A logged in user update details
+      operationId: updateUser
+      requestBody:
+        description: Update logged in user
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                  example: Jane
+                lastName:
+                  type: string
+                  example: Smith
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: User profile updated successfully
+                  data:
+                    type: object
+                    properties:
+                      userId:
+                        type: string
+                        example: 6b2d9dda-3939-4bc4-bb29-51baa6087r54
+                      firstName:
+                        type: string
+                        example: Jane
+                      lastName:
+                        type: string
+                        example: Smith
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Bad request
+                  message:
+                    type: string
+                    example: Unable to update user
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Unauthorized
+                  message:
+                    type: string
+                    example: You cannot perform task
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Server error
+                  message:
+                    type: string
+                    example: Internal server error
+
+  "/users/preference":
+    patch:
+      security:
+        - bearerAuth: []
+      tags:
+        - User
+      summary: Update user's preferences
+      description: A logged in user update preferences
+      operationId: updateUserPrefernces
+      requestBody:
+        description: Update logged in user's preferences
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                language:
+                  type: string
+                  example: English
+                region:
+                  type: string
+                  example: West Africa
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: User preferences updated successfully
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Bad request
+                  message:
+                    type: string
+                    example: Unable to update user preferences
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Unauthorized
+                  message:
+                    type: string
+                    example: You cannot perform task
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Server error
+                  message:
+                    type: string
+                    example: Internal server error
   /auth/register:
     post:
       tags:
@@ -340,315 +648,6 @@ paths:
                   message:
                     type: string
                     example: Internal server error
-  /users:
-    get:
-      tags:
-        - User
-      summary: View all users
-      description: Admin can view all users
-      operationId: getAllUsers
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: success
-                  message:
-                    type: string
-                    example: Users retrieved successfully
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        userId:
-                          type: string
-                          example: 80wd9dda-3939-4bc4-bb29-51baa6087r54
-                        firstName:
-                          type: string
-                          example: John
-                        lastName:
-                          type: string
-                          example: Doe
-                        email:
-                          type: string
-                          example: johndoe@gmail.com
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Unauthorized
-                  message:
-                    type: string
-                    example: You cannot perform task
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Forbidden
-                  message:
-                    type: string
-                    example: You cannot perform task
-        '500':
-          description: Server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Server error
-                  message:
-                    type: string
-                    example: Internal server error
-
-  /users/me:
-    get:
-      security:
-      - bearerAuth: []
-      tags:
-      - User
-      summary: View profile
-      description: A logged in user can view profile
-      operationId: getUser
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: success
-                  message:
-                    type: string
-                    example: Profile returned successfully
-                  data:
-                    type: object
-                    properties:
-                      userId:
-                        type: string
-                        example: 6b2d9dda-3939-4bc4-bb29-51baa6087r54
-                      firstName:
-                        type: string
-                        example: John
-                      lastName:
-                        type: string
-                        example: Doe
-                      email:
-                        type: string
-                        example: johndoe@gmail.com
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Unauthorized
-                  message:
-                    type: string
-                    example: You cannot perform task
-        '500':
-          description: Server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Server error
-                  message:
-                    type: string
-                    example: Internal server error
-
-  /users/update:
-    patch:
-      security:
-        - bearerAuth: []
-      tags:
-        - User
-      summary: Update user
-      description: A logged in user update details
-      operationId: updateUser
-      requestBody:
-        description: Update logged in user
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                firstName:
-                  type: string
-                  example: Jane
-                lastName:
-                  type: string
-                  example: Smith
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: success
-                  message:
-                    type: string
-                    example: User profile updated successfully
-                  data:
-                    type: object
-                    properties:
-                      userId:
-                        type: string
-                        example: 6b2d9dda-3939-4bc4-bb29-51baa6087r54
-                      firstName:
-                        type: string
-                        example: Jane
-                      lastName:
-                        type: string
-                        example: Smith
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Bad request
-                  message:
-                    type: string
-                    example: Unable to update user
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Unauthorized
-                  message:
-                    type: string
-                    example: You cannot perform task
-        '500':
-          description: Server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Server error
-                  message:
-                    type: string
-                    example: Internal server error
-
-  "/users/preference":
-    patch:
-      security:
-        - bearerAuth: []
-      tags:
-        - User
-      summary: Update user's preferences
-      description: A logged in user update preferences
-      operationId: updateUserPrefernces
-      requestBody:
-        description: Update logged in user's preferences
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                language:
-                  type: string
-                  example: English
-                region:
-                  type: string
-                  example: West Africa
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: success
-                  message:
-                    type: string
-                    example: User preferences updated successfully
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Bad request
-                  message:
-                    type: string
-                    example: Unable to update user preferences
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Unauthorized
-                  message:
-                    type: string
-                    example: You cannot perform task
-        '500':
-          description: Server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: Server error
-                  message:
-                    type: string
-                    example: Internal server error
-
   "/organisations":
     post:
       security:
