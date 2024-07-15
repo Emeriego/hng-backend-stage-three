@@ -18,7 +18,7 @@ servers:
 tags:
   - name: DatabaseDesign
     url: https://drive.google.com/file/d/1X6980tVbsdIimuX1RvaUoHe9RxYLyRZV/view?usp=sharing
-    description: Database design
+    description: found here https://drive.google.com/file/d/1X6980tVbsdIimuX1RvaUoHe9RxYLyRZV/view?usp=sharing
   - name: Auth
     description: Everything about authentication
   - name: Organisation
