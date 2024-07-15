@@ -943,86 +943,85 @@ paths:
                     type: string
                     example: Internal server error
 
-"/blogs":
-  post:
-    security:
-      - bearerAuth: []
-    tags:
-      - Blog
-    summary: Create blog
-    description: A logged in user can create blogs
-    operationId: createBlog
-    requestBody:
-      description: Create a new blog
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/CreateBlog"
-    responses:
-      '201':
-        description: Successful operation
+  "/blogs":
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Blog
+      summary: Create blog
+      description: A logged in user can create blogs
+      operationId: createBlog
+      requestBody:
+        description: Create a new blog
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                status:
-                  type: string
-                  example: success
-                message:
-                  type: string
-                  example: Blog created successfully
-                data:
-                  type: object
-                  properties:
-                    blogId:
-                      type: string
-                      example: 3t2d9dda-3939-4bc4-bb29-51baa6087r54
-                    title:
-                      type: string
-                      example: My First blog
-                    content:
-                      type: string
-                      example: This is my first blog
-                    slug:
-                      type: string
-                      example: my-first-blog
-                    author:
-                      type: object
-                      properties:
-                        firstName:
-                          type: string
-                          example: John
-                        lastName:
-                          type: string
-                          example: Doe
-      '400':
-        description: Bad request
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                status:
-                  type: string
-                  example: Bad request
-                message:
-                  type: string
-                  example: Unable to create blog
-      '401':
-        description: Unauthorized
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                status:
-                  type: string
-                  example: Unauthorized
-                message:
-                  type: string
-                  example: You cannot perform task
-      '500':
+              $ref: "#/components/schemas/CreateBlog"
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Blog created successfully
+                  data:
+                    type: object
+                    properties:
+                      blogId:
+                        type: string
+                        example: 3t2d9dda-3939-4bc4-bb29-51baa6087r54
+                      title:
+                        type: string
+                        example: My First blog
+                      content:
+                        type: string
+                        example: This is my first blog
+                      slug:
+                        type: string
+                        example: my-first-blog
+                      author:
+                        type: object
+                        properties:
+                          firstName:
+                            type: string
+                            example: John
+                          lastName:
+                            type: string
+                            example: Doe
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Bad request
+                  message:
+                    type: string
+                    example: Unable to create blog
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Unauthorized
+                  message:
+                    type: string
+                    example: You cannot perform task
         description: Server error
         content:
           application/json:
