@@ -4,7 +4,7 @@ const YAML = require('yamljs'); // if using a YAML spec
 // const swaggerDocument = require('./api/openapi.json'); // if using a JSON spec
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 const swaggerDocument = YAML.load('./openapi.yaml'); // if using a YAML spec
 
